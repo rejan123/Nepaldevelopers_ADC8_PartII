@@ -31,7 +31,7 @@ class User(models.Model):
         return self.user_name
 
     def count_orders(self):
-        return self.orders.all.count()
+        return self.orders.all().count()
 
     def valid_user_name(self):
         return self.user_name!=""
@@ -52,7 +52,7 @@ class Payment(models.Model):
 class Order(models.Model):
     order_name=models.TextField()
     order_type=models.TextField()
-    order_date=models.IntegerField(max_length=50)
+    order_date=models.DateField(max_length=50,null=True)
     user_order=models.ManyToManyField(User,related_name="orders")
 
     def __str__(self):

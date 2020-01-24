@@ -26,5 +26,5 @@ class ModelTestCase(TestCase):
     
     def test_valid_gender(self):
         user=User.objects.create(user_name="asish",user_email="asish@gmail.com",user_gender="male",user_age=20)
-        self.assertEqual(user.valid_gender())
+        self.assertTrue(user.valid_gender())
 
