@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User,Permission
 from django.contrib.auth import authenticate
 from django.contrib.auth import logout,login
+from django.contrib.contenttypes.models import ContentType
+from products.models import Product
 
 # Create your views here.
 
@@ -32,6 +34,27 @@ def post_sign_up(req):
     print(username,email)
     user=User.objects.create_user(username=username,password=password,email=email)
     user.save()
+
+    #user permission 
+    content_type=ContentType.objects.get_for_model(Product)
+
+    #add permission
+    permission=Permission.objects.get(
+        codename='add_product',
+        content_type=content_type
+    )
+
+    user.user_permissions.add(permission)
+    
+    #view permission
+    permission=Permission.objects.get(
+        codename='view_product',
+        content_type=content_type
+    )
+
+    user.user_permissions.add(permission)
+
+
     return redirect("home")
 
 def user_logout(req):

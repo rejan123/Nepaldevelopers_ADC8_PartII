@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from .models import *
 from django.core.files.storage import FileSystemStorage
 
+
 # Create your views here.
 
 def get_products(req):
