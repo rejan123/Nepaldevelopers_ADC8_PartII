@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'products',
     'Kicksworld',
-    'user_auth'
+    'user_auth',
+    'api',
 ]
 
 MIDDLEWARE = [

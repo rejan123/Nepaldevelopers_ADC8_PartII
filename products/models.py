@@ -4,7 +4,7 @@ from django.db import models
 class Product(models.Model):
     product_pic=models.ImageField()
     product_name=models.TextField()
-    product_price=models.IntegerField(max_length=50)
+    product_price=models.IntegerField()
     product_model=models.TextField()
     product_category=models.TextField()
     product_gender=models.TextField()
@@ -18,7 +18,7 @@ class User(models.Model):
     user_email=models.TextField()
     user_address=models.TextField()
     user_gender=models.TextField()
-    user_age=models.IntegerField(max_length=50)
+    user_age=models.IntegerField()
     products=models.ManyToManyField(Product)
    
     def __str__(self):
