@@ -33,7 +33,7 @@ def view_get_post_user(request):
         user_email=python_dictionary_object['user_email'],
         user_address=python_dictionary_object['user_address'],
         user_gender=python_dictionary_object['user_gender'],
-        user_age=python_dictionary_object['user_age']),
+        user_age=python_dictionary_object['user_age'])
 
         return JsonResponse({
             "message":"Successfully posted!!"
@@ -45,8 +45,8 @@ def view_get_post_user(request):
 def view_getByID_updateByID_deleteByID(request,ID):
     print("What's the request =>",request.method)
     if request.method == "GET":
-        user = user.objects.get(id = ID)
-        print(type(user.user_name))
+        user = User.objects.get(id = ID)
+
         return JsonResponse({
             "user_name":user.user_name,
             "user_email":user.user_email,
@@ -54,7 +54,58 @@ def view_getByID_updateByID_deleteByID(request,ID):
             "user_gender":user.user_gender,
             "user_age":user.user_age,
         })
-    else:
+    elif request.method=="PUT":
+        print("Request body content =>", request.body)
+        print("Request body type =>", type(request.body))
+        python_dictionary_object = json.loads(request.body)
+        print("Python dictionary contents=>",python_dictionary_object)
+        print("Python dictionary type=>",type(python_dictionary_object))
+       
+        user_name=(python_dictionary_object['user_name'])
+        user_email=(python_dictionary_object['user_email'])
+        user_address=(python_dictionary_object['user_address'])
+        user_gender=(python_dictionary_object['user_gender'])
+        user_age=(python_dictionary_object['user_age'])
+
+        current_user=User.objects.get(id=ID)
+
+        current_user.user_email=user_email
+        current_user.user_address=user_address
+        current_user.user_gender=user_gender
+        current_user.user_age=user_age
+
+        current_user.save()
+
+        user_email=python_dictionary_object['user_email']
+        user_address=python_dictionary_object['user_address']
+        user_gender=python_dictionary_object['user_gender']
+        user_age=python_dictionary_object['user_age']
+
         return JsonResponse({
-        "message":" Other htpp verbs Testing"
-        }) 
+            "user_name":user_name,
+            "user_email":user_email,
+            "user_address":user_address,
+            "user_gender":user_gender,
+            "user_age":user_age,
+        })
+    elif request.method=="DELETE":
+        current_user=User.objects.get(id=ID)
+        current_user.delete()
+        return JsonResponse({
+            "message":"Delete"
+        })
+
+
+def get_pagination(request,page_no,items):
+    start=page_no*items
+    end=start+items
+    print("What's the request => ",request.method)
+    if request.method == "GET":
+        user = User.objects.all()
+        print("QuerySet objects => ",user)
+        list_of_users = list(user.values("user_name","user_email","user_address","user_gender","user_age"))
+        print("List of user => ",list_of_users)
+        dictionary_name = {
+        "users":list_of_users[start:end]
+    }
+    return JsonResponse(dictionary_name)
