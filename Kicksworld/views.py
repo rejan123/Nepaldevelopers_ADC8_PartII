@@ -17,8 +17,8 @@ def custom(request):
 def contact(request):
      return render(request, 'contact.html')
 
-def about(request):
-     return render(request, 'about.html')     
+def store(request):
+     return render(request, 'store.html')     
 
 def search(request):
      return render(request, 'search.html')     
