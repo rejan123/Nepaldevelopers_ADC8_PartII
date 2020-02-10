@@ -20,5 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('products/',include('products.urls')),
     path('',include('Kicksworld.urls')),
-    path('user_auth/',include('user_auth.urls'))
+    path('user_auth/',include('user_auth.urls')),
+    path('api/',include('api.urls')),
 ]
