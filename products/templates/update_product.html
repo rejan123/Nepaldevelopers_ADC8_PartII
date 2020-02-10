@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Add Product</title>
+</head>
+<body>
+    <h2>Update Products</h2>
+
+    <form action="../post_update_product/{{product.id}}" method="post" enctype="multipart/form-data">
+        {%csrf_token%}
+        <p>Product Image:</p><input type="file" name="product_pic"><br>
+        <input type="text" name="product_name" id="" value={{product.product_name}} placeholder="Enter Product Name"><br>
+        <input type="number" name="product_price" value={{product.product_price}} placeholder="Enter Product Price"><br>
+        <input type="text" name="product_model" id="" value={{product.product_model}} placeholder="Enter Product Model"><br>
+        <input type="text" name="product_category" value={{product.product_category}} placeholder="Enter Product Category"><br>
+        <input type="text" name="product_gender" id="" value={{product.product_gender}} placeholder="Enter Gender"><br>
+        <textarea name="product_details" id="" cols="30" rows="10" placeholder="Enter Product Details">
+            {{product.product_details}}
+        </textarea><br>
+        <input type="submit" value="update_product">
+    </form>
+</body>
+</html>
